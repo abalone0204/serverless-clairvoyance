@@ -1,0 +1,14 @@
+{
+    "apiRequestCreateJobTemplate": {
+        "application/json": {
+            "operation": "create",
+            "payload": {
+                "TableName": "jobs",
+                "Item": {
+                    "company_name": "$input.path('$').payload.Item.company_name",
+                    "job_name": "$input.path('$').payload.Item.job_name"
+                }
+            }
+        }
+    }
+}
