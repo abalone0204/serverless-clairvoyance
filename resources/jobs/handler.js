@@ -24,6 +24,14 @@ module.exports.handler = (event, context) => {
                 context.succeed(event.payload.Item)
             })
             break
+        case 'read':
+            dynamo.query(event.payload, (err, data) => {
+                if (err) {
+                    context.fail(err)
+                }
+                context.succeed(data)                
+            })
+            break
         // case 'read':
         //     dynamo.getItem(event.payload, (err, data) => {
         //         context.succeed(data)
