@@ -9,11 +9,11 @@
 ```js
 {
     PRIMARY(id),
-    SORT(job_id),
-    comment,
-    source,
-    [positive_tag],
-    [negative_tag]
+    GSI(job_id),
+    content,
+    GSI(source),
+    positive_tags: [positive_tag],
+    negative_tags: [negative_tag]
 }
 ```
 

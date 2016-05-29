@@ -1,0 +1,15 @@
+{
+  "apiRequestCreateCommentTemplate": {
+    "application/json": {
+      "operation": "create",
+      "payload": {
+        "TableName": "comments",
+        "Item": {
+          "job_id": "$input.path('$').payload.Item.job_id",
+          "content": "$input.path('$').payload.Item.content",
+          "source": "$input.path('$').payload.Item.source"
+        }
+      }
+    }
+  }
+}
