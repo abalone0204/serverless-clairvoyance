@@ -12,6 +12,21 @@ module.exports.handler = function(event, context) {
     console.log('Context: ', display(context))
     const operation = event.operation
     switch (operation) {
+        case 'read':
+            dynamo.query(event.payload, (err, data) => {
+                if (err) {
+                    context.fail(err)
+                }
+
+                if (data.Items.length > 0) {
+                    context.succeed(data.Items)
+                } else {
+                    context.succeed({
+                        message: 'comments not found'
+                    })
+                }
+            })
+            break
         case 'create':
             event.payload.Item.id = uuid.v1()
             console.log('Payload: ', display(event.payload))

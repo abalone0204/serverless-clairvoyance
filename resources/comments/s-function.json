@@ -20,9 +20,7 @@
       "authorizerFunction": false,
       "apiKeyRequired": false,
       "requestParameters": {},
-      "requestTemplates": {
-        "application/json": ""
-      },
+      "requestTemplates": "$${apiRequestReadCommentTemplate}",
       "responses": {
         "400": {
           "statusCode": "400"

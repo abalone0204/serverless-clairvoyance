@@ -1,4 +1,17 @@
 {
+  "apiRequestReadCommentTemplate": {
+    "application/json": {
+      "operation": "read",
+      "payload": {
+        "TableName": "comments",
+        "IndexName": "job_id-index",
+        "KeyConditionExpression": "job_id = :job_id",
+        "ExpressionAttributeValues": {
+          ":job_id": "$input.params().header.get('x-Job-Id')"
+        }
+      }
+    }
+  },
   "apiRequestCreateCommentTemplate": {
     "application/json": {
       "operation": "create",
