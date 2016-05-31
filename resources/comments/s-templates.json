@@ -18,9 +18,9 @@
       "payload": {
         "TableName": "comments",
         "Item": {
-          "job_id": "$input.path('$').payload.Item.job_id",
-          "content": "$input.path('$').payload.Item.content",
-          "source": "$input.path('$').payload.Item.source"
+          "job_id": "$input.path('$').job_id",
+          "content": "$input.path('$').content",
+          "source": "$input.path('$').source"
         }
       }
     }
