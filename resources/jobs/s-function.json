@@ -11,61 +11,62 @@
   "custom": {
     "cors": {
       "allowOrigin": "*",
-      "allowHeaders": ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Company-Name", "X-Job-Name"]
+      "allowHeaders": [
+        "Content-Type", "X-Amz-Date", "Authorization",
+        "X-Api-Key", "X-Company-Name", "X-Job-Name", 
+        "X-E04-Job-No"
+      ]
     }
   },
-  "endpoints": [
-    {
-      "path": "jobs",
-      "method": "GET",
-      "type": "AWS",
-      "authorizationType": "none",
-      "authorizerFunction": false,
-      "apiKeyRequired": false,
-      "requestParameters": {},
-      "requestTemplates": "$${apiRequestReadJobTemplate}",
-      "responses": {
-        "400": {
-          "statusCode": "400"
+  "endpoints": [{
+    "path": "jobs",
+    "method": "GET",
+    "type": "AWS",
+    "authorizationType": "none",
+    "authorizerFunction": false,
+    "apiKeyRequired": false,
+    "requestParameters": {},
+    "requestTemplates": "$${apiRequestReadJobTemplate}",
+    "responses": {
+      "400": {
+        "statusCode": "400"
+      },
+      "default": {
+        "statusCode": "200",
+        "responseParameters": {},
+        "responseModels": {
+          "application/json;charset=UTF-8": "Empty"
         },
-        "default": {
-          "statusCode": "200",
-          "responseParameters": {},
-          "responseModels": {
-            "application/json;charset=UTF-8": "Empty"
-          },
-          "responseTemplates": {
-            "application/json;charset=UTF-8": ""
-          }
-        }
-      }
-    },
-    {
-      "path": "jobs",
-      "method": "POST",
-      "type": "AWS",
-      "authorizationType": "none",
-      "authorizerFunction": false,
-      "apiKeyRequired": false,
-      "requestParameters": {},
-      "requestTemplates": "$${apiRequestCreateJobTemplate}",
-      "responses": {
-        "400": {
-          "statusCode": "400"
-        },
-        "default": {
-          "statusCode": "200",
-          "responseParameters": {},
-          "responseModels": {
-            "application/json;charset=UTF-8": "Empty"
-          },
-          "responseTemplates": {
-            "application/json;charset=UTF-8": ""
-          }
+        "responseTemplates": {
+          "application/json;charset=UTF-8": ""
         }
       }
     }
-  ],
+  }, {
+    "path": "jobs",
+    "method": "POST",
+    "type": "AWS",
+    "authorizationType": "none",
+    "authorizerFunction": false,
+    "apiKeyRequired": false,
+    "requestParameters": {},
+    "requestTemplates": "$${apiRequestCreateJobTemplate}",
+    "responses": {
+      "400": {
+        "statusCode": "400"
+      },
+      "default": {
+        "statusCode": "200",
+        "responseParameters": {},
+        "responseModels": {
+          "application/json;charset=UTF-8": "Empty"
+        },
+        "responseTemplates": {
+          "application/json;charset=UTF-8": ""
+        }
+      }
+    }
+  }],
   "events": [],
   "environment": {
     "SERVERLESS_PROJECT": "${project}",

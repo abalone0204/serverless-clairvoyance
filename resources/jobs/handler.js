@@ -26,15 +26,22 @@ module.exports.handler = (event, context) => {
             })
             break
         case 'read':
+            const response = dynamo.query(event.payload)
+            console.log('first response ==>' , response);
             dynamo.query(event.payload, (err, data) => {
                 if (err) {
                     context.fail(err)
                 }
-
                 if (data.Items.length > 0) {
                     context.succeed(data.Items)                        
                 } else {
-                    context.succeed({message: 'job not found'})                        
+                    dynamo.query(event.e04payload, (err, data) => {
+                        if (err) {
+                            context.fail(err)
+                        } else {
+                            context.succeed(data.Items)    
+                        }
+                    })                    
                 }
                 
 

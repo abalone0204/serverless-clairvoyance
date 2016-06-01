@@ -5,8 +5,9 @@
       "payload": {
         "TableName": "jobs",
         "Item": {
-          "company_name": "$input.path('$').payload.Item.company_name",
-          "job_name": "$input.path('$').payload.Item.job_name"
+          "company_name": "$input.path('$').companyName",
+          "job_name": "$input.path('$').jobName",
+          "e04_job_no": "$input.path('$').jobNo"
         }
       }
     }
@@ -21,6 +22,15 @@
         "ExpressionAttributeValues": {
           ":company_name": "$input.params().header.get('x-Company-Name')",
           ":job_name": "$input.params().header.get('x-Job-Name')"
+        },
+        "Limit": 1
+      },
+      "e04payload": {
+        "TableName": "jobs",
+        "IndexName": "e04_job_no-index",
+        "KeyConditionExpression": "e04_job_no = :e04_job_no",
+        "ExpressionAttributeValues": {
+          ":e04_job_no": "$input.params().header.get('x-E04-Job-No')"
         },
         "Limit": 1
       }
