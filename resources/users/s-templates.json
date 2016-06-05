@@ -2,7 +2,7 @@
     "apiRequestGetUserTemplate": {
         "application/json": {
             "operation": "get",
-            "access_token": "$input.params('access_token')",
+            "access_token": "$input.params().header.get('x-Access-Token')",
             "payload": {
                 "TableName": "CLVUser",
                 "IndexName": "fb_id-index",
@@ -14,7 +14,7 @@
     "apiRequestCreateUserTemplate": {
         "application/json": {
             "operation": "create",
-            "access_token": "$input.params('access_token')",
+            "access_token": "$input.params().header.get('x-Access-Token')",
             "payload": {
                 "TableName": "CLVUser",
                 "Item": {}
