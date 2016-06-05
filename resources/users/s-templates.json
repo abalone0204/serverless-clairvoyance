@@ -7,8 +7,7 @@
                 "TableName": "CLVUser",
                 "IndexName": "fb_id-index",
                 "KeyConditionExpression": "fb_id = :fb_id",
-                "ExpressionAttributeValues": {
-                }
+                "ExpressionAttributeValues": {}
             }
         }
     },
@@ -19,6 +18,12 @@
             "payload": {
                 "TableName": "CLVUser",
                 "Item": {}
+            },
+            "check_params": {
+                "TableName": "CLVUser",
+                "IndexName": "fb_id-index",
+                "KeyConditionExpression": "fb_id = :fb_id",
+                "ExpressionAttributeValues": {}
             }
         }
     }
