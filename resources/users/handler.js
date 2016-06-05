@@ -53,6 +53,7 @@ function eventHandler(event, context) {
                             event.payload.Item.id = uuid.v1()
                             event.payload.Item.fb_id = user.id
                             event.payload.Item.user_name = user.name
+                            event.payload.Item.created_at = Date.now()
                             createUserHandler(event.payload, context)
                         }
                     }
