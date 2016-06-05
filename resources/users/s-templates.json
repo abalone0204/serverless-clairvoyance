@@ -1,0 +1,12 @@
+{
+    "apiRequestCreateUserTemplate": {
+        "application/json": {
+            "operation": "create",
+            "access_token": "$input.params('access_token')",
+            "payload": {
+                "TableName": "CLVUser",
+                "Item": {}
+            }
+        }
+    }
+}

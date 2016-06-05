@@ -2,6 +2,7 @@
     "name": "serverless-clairvoyance",
     "custom": {},
     "plugins": [
-        "serverless-cors-plugin"
+        "serverless-cors-plugin",
+        "serverless-offline"
     ]
 }
