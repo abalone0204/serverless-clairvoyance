@@ -1,4 +1,17 @@
 {
+    "apiRequestGetUserTemplate": {
+        "application/json": {
+            "operation": "get",
+            "access_token": "$input.params('access_token')",
+            "payload": {
+                "TableName": "CLVUser",
+                "IndexName": "fb_id-index",
+                "KeyConditionExpression": "fb_id = :fb_id",
+                "ExpressionAttributeValues": {
+                }
+            }
+        }
+    },
     "apiRequestCreateUserTemplate": {
         "application/json": {
             "operation": "create",

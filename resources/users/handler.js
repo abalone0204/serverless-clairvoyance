@@ -12,16 +12,30 @@ function getUserDataUri(access_token, fileds) {
     return `https://graph.facebook.com/me?access_token=${access_token}&fileds=email,id,name`
 }
 
-module.exports.handler = function(event, context) {
+module.exports.handler = (event, context) => {
     console.log('Event: ', display(event))
     console.log('Context: ', display(context))
-
+    const url = getUserDataUri(event.access_token)
     const operation = event.operation
     switch (event.operation) {
-        case 'read':
-
+        case 'get':
+            fetch(url, {
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(user => {
+                    event.payload.ExpressionAttributeValues[':fb_id'] = user.id
+                    dynamo.query(event.payload, (err, data) => {
+                        if (err) {
+                            context.fail(err)
+                        } else {
+                            context.succeed(data.Items)
+                        }
+                    })
+                })
+            break
         case 'create':
-            const url = getUserDataUri(event.access_token)
+
             fetch(url, {
                     mode: 'cors'
                 })
@@ -32,8 +46,7 @@ module.exports.handler = function(event, context) {
                     event.payload.Item.id = uuid.v1()
                     event.payload.Item.fb_id = user.id
                     event.payload.Item.user_name = user.name
-                    
-                    console.log('params after: ', display(event.payload));
+
                     dynamo.putItem(event.payload, (err, data) => {
                         if (err) {
                             context.fail(new Error(err))

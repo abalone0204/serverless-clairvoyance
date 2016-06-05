@@ -14,7 +14,7 @@ module.exports.handler = (event, context) => {
     const operation = event.operation
     switch (operation) {
         case 'create':
-            
+
             event.payload.Item.id = uuid.v1()
             
             console.log('Payload: ', display(event.payload))
@@ -26,8 +26,6 @@ module.exports.handler = (event, context) => {
             })
             break
         case 'read':
-            const response = dynamo.query(event.payload)
-            console.log('first response ==>' , response);
             dynamo.query(event.payload, (err, data) => {
                 if (err) {
                     context.fail(err)
@@ -43,8 +41,6 @@ module.exports.handler = (event, context) => {
                         }
                     })                    
                 }
-                
-
             })
             break
         default:
