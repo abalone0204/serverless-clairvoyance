@@ -17,7 +17,7 @@ function getUserHandler(params, context, callback) {
         if (err) {
             context.fail(err)
         } else {
-            context.succeed(data.Items)
+            context.succeed(data.Items[0])
         }
     })
 }
