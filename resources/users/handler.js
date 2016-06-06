@@ -27,7 +27,7 @@ function createUserHandler(params, context) {
         if (err) {
             context.fail(new Error(err))
         } else {
-            context.succeed(params)
+            context.succeed(params.Item)
         }
     })
 }
