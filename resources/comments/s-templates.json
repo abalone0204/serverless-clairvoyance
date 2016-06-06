@@ -3,7 +3,7 @@
     "application/json": {
       "operation": "read",
       "payload": {
-        "TableName": "comments",
+        "TableName": "Comments",
         "IndexName": "job_id-index",
         "KeyConditionExpression": "job_id = :job_id",
         "ExpressionAttributeValues": {
@@ -15,13 +15,21 @@
   "apiRequestCreateCommentTemplate": {
     "application/json": {
       "operation": "create",
+      "access_token": "$input.path('$').accessToken",
+      "anonymous": "$input.path('$.anonymous')",
       "payload": {
-        "TableName": "comments",
+        "TableName": "Comments",
         "Item": {
           "job_id": "$input.path('$').job_id",
           "content": "$input.path('$').content",
           "source": "$input.path('$').source"
         }
+      },
+      "find_user_payload": {
+        "TableName": "CLVUser",
+        "IndexName": "fb_id-index",
+        "KeyConditionExpression": "fb_id = :fb_id",
+        "ExpressionAttributeValues": {}
       }
     }
   }

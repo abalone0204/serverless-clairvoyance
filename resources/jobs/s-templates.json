@@ -3,7 +3,7 @@
     "application/json": {
       "operation": "create",
       "payload": {
-        "TableName": "jobs",
+        "TableName": "Jobs",
         "Item": {
           "company_name": "$input.path('$').companyName",
           "job_name": "$input.path('$').jobName",
@@ -16,7 +16,7 @@
     "application/json": {
       "operation": "read",
       "payload": {
-        "TableName": "jobs",
+        "TableName": "Jobs",
         "IndexName": "company_name-job_name-index",
         "KeyConditionExpression": "company_name = :company_name and  job_name = :job_name",
         "ExpressionAttributeValues": {
@@ -26,7 +26,7 @@
         "Limit": 1
       },
       "e04payload": {
-        "TableName": "jobs",
+        "TableName": "Jobs",
         "IndexName": "e04_job_no-index",
         "KeyConditionExpression": "e04_job_no = :e04_job_no",
         "ExpressionAttributeValues": {

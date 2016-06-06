@@ -7,6 +7,10 @@ function display(object) {
     return JSON.stringify(object, null, 2)
 }
 
+function getUserDataUri(access_token) {
+    return `https://graph.facebook.com/me?access_token=${access_token}&fileds=email,id,name`
+}
+
 module.exports.handler = function(event, context) {
     console.log('Event: ', display(event))
     console.log('Context: ', display(context))
@@ -28,13 +32,36 @@ module.exports.handler = function(event, context) {
             })
             break
         case 'create':
-            event.payload.Item.id = uuid.v1()
-            console.log('Payload: ', display(event.payload))
-            dynamo.putItem(event.payload, (err, data) => {
-                if (err) {
-                    context.fail(err)
-                }
-                context.succeed(event.payload.Item)
+            const url = getUserDataUri(event.access_token)
+            const fetch = require('node-fetch')
+            fetch(url, {mode:'cors'})
+            .then(response => response.json())
+            .then(user => {
+                event.find_user_payload.ExpressionAttributeValues[':fb_id'] = user.id
+
+                dynamo.query(event.find_user_payload, (err, userData) => {
+                    if (err) {
+                        context.fail(new Error(err))
+                    } else {
+                        event.payload.Item.id = uuid.v1()
+                        console.log('userData: ',userData);
+                        if (event.anonymous === 'false') {
+                            event.payload.Item.user_name = userData.Items[0].user_name
+                            event.payload.Item.anonymous = false
+                        } else {
+                            event.payload.Item.anonymous = true
+                        }
+                        event.payload.Item.timestamp = Date.now()
+                        dynamo.putItem(event.payload, (err, data) => {
+                            if(err) {
+                                context.fail(err)
+                            } else {
+                                context.succeed(event.payload.Item)
+                            }
+                        })
+
+                    }
+                })
             })
             break
         default:
