@@ -32,6 +32,10 @@ module.exports.handler = function(event, context) {
             })
             break
         case 'create':
+            const types = ['good', 'bad', 'normal']
+            if (types.indexOf(event.type) === -1) {
+                context.fail(new Error('Unknown type of comment'))
+            } 
             const url = getUserDataUri(event.access_token)
             const fetch = require('node-fetch')
             fetch(url, {mode:'cors'})
@@ -52,6 +56,7 @@ module.exports.handler = function(event, context) {
                         } else {
                             event.payload.Item.anonymous = true
                         }
+                        event.payload.Item.type = event.type
                         event.payload.Item.timestamp = Date.now()
                         dynamo.putItem(event.payload, (err, data) => {
                             if(err) {

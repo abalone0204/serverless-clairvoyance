@@ -17,6 +17,7 @@
       "operation": "create",
       "access_token": "$input.path('$').accessToken",
       "anonymous": "$input.path('$.anonymous')",
+      "type": "$input.path('$').type",
       "payload": {
         "TableName": "Comments",
         "Item": {
