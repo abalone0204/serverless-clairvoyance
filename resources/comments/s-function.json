@@ -25,7 +25,13 @@
     "requestTemplates": "$${apiRequestReadCommentTemplate}",
     "responses": {
       "400": {
-        "statusCode": "400"
+        "statusCode": "400",
+        "selectionPattern": ".*\"status\":400.*",
+        "responseTemplates": {
+          "application/json;charset=UTF-8": {
+            "error": "$input.json('$.errorMessage')"
+          }
+        }
       },
       "default": {
         "statusCode": "200",
@@ -49,7 +55,13 @@
     "requestTemplates": "$${apiRequestCreateCommentTemplate}",
     "responses": {
       "400": {
-        "statusCode": "400"
+        "statusCode": "400",
+        "selectionPattern": ".*\"status\":400.*",
+        "responseTemplates": {
+          "application/json;charset=UTF-8": {
+            "error": "$input.json('$.errorMessage')"
+          }
+        }
       },
       "default": {
         "statusCode": "200",

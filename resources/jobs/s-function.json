@@ -13,7 +13,7 @@
       "allowOrigin": "*",
       "allowHeaders": [
         "Content-Type", "X-Amz-Date", "Authorization",
-        "X-Api-Key", "X-Company-Name", "X-Job-Name", 
+        "X-Api-Key", "X-Company-Name", "X-Job-Name",
         "X-E04-Job-No"
       ]
     }
@@ -29,7 +29,14 @@
     "requestTemplates": "$${apiRequestReadJobTemplate}",
     "responses": {
       "400": {
-        "statusCode": "400"
+        "statusCode": "400",
+        "selectionPattern": ".*\"status\": 400.*",
+        "responseTemplates": {
+          "application/json;charset=UTF-8": {
+            "error": "$input.json('$.errorMessage')"
+          }
+        }
+
       },
       "default": {
         "statusCode": "200",
@@ -53,7 +60,13 @@
     "requestTemplates": "$${apiRequestCreateJobTemplate}",
     "responses": {
       "400": {
-        "statusCode": "400"
+        "statusCode": "400",
+        "selectionPattern": ".*\"status\":400.*",
+        "responseTemplates": {
+          "application/json;charset=UTF-8": {
+            "error": "$input.json('$.errorMessage')"
+          }
+        }
       },
       "default": {
         "statusCode": "200",
