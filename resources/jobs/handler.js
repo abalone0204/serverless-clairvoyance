@@ -14,16 +14,29 @@ module.exports.handler = (event, context) => {
     const operation = event.operation
     switch (operation) {
         case 'create':
-
-            event.payload.Item.id = uuid.v1()
-            
-            console.log('Payload: ', display(event.payload))
-            dynamo.putItem(event.payload, (err, data) => {
+            const queryCallback = (cb) => (err, data) => {
                 if (err) {
                     context.fail(err)
+                } else {
+                    if (data.Items.length !== 0) {
+                        context.fail(new Error('Job already exist'))
+                    } else {
+                        cb()
+                    }
                 }
-                context.succeed(event.payload.Item)
-            })
+            }
+            dynamo.query(event.check_payload, queryCallback(() => {
+                dynamo.query(event.e04_check_payload, queryCallback(() => {
+                    event.payload.Item.id = uuid.v1()
+                    console.log('Payload: ', display(event.payload))
+                    dynamo.putItem(event.payload, (err, data) => {
+                        if (err) {
+                            context.fail(err)
+                        }
+                        context.succeed(event.payload.Item)
+                    })
+                }))
+            }))
             break
         case 'read':
             dynamo.query(event.payload, (err, data) => {
@@ -31,15 +44,15 @@ module.exports.handler = (event, context) => {
                     context.fail(err)
                 }
                 if (data.Items.length > 0) {
-                    context.succeed(data.Items[0])                        
+                    context.succeed(data.Items[0])
                 } else {
                     dynamo.query(event.e04payload, (err, data) => {
                         if (err) {
                             context.fail(err)
                         } else {
-                            context.succeed(data.Items[0])    
+                            context.succeed(data.Items[0])
                         }
-                    })                    
+                    })
                 }
             })
             break

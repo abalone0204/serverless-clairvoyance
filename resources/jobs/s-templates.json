@@ -9,6 +9,25 @@
           "job_name": "$input.path('$').job_name",
           "e04_job_no": "$input.path('$').e04_job_no"
         }
+      },
+      "check_payload": {
+        "TableName": "Jobs",
+        "IndexName": "company_name-job_name-index",
+        "KeyConditionExpression": "company_name = :company_name and  job_name = :job_name",
+        "ExpressionAttributeValues": {
+          ":company_name": "$input.path('$').company_name",
+          ":job_name": "$input.path('$').job_name"
+        },
+        "Limit": 1
+      },
+      "e04_check_payload": {
+        "TableName": "Jobs",
+        "IndexName": "e04_job_no-index",
+        "KeyConditionExpression": "e04_job_no = :e04_job_no",
+        "ExpressionAttributeValues": {
+          ":e04_job_no": "$input.path('$').e04_job_no"
+        },
+        "Limit": 1
       }
     }
   },
