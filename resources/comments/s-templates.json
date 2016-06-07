@@ -15,7 +15,7 @@
   "apiRequestCreateCommentTemplate": {
     "application/json": {
       "operation": "create",
-      "access_token": "$input.path('$').accessToken",
+      "access_token": "$input.path('$').access_token",
       "anonymous": "$input.path('$.anonymous')",
       "type": "$input.path('$').type",
       "payload": {

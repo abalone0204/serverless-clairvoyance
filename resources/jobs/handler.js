@@ -31,13 +31,13 @@ module.exports.handler = (event, context) => {
                     context.fail(err)
                 }
                 if (data.Items.length > 0) {
-                    context.succeed(data.Items)                        
+                    context.succeed(data.Items[0])                        
                 } else {
                     dynamo.query(event.e04payload, (err, data) => {
                         if (err) {
                             context.fail(err)
                         } else {
-                            context.succeed(data.Items)    
+                            context.succeed(data.Items[0])    
                         }
                     })                    
                 }

@@ -5,9 +5,9 @@
       "payload": {
         "TableName": "Jobs",
         "Item": {
-          "company_name": "$input.path('$').companyName",
-          "job_name": "$input.path('$').jobName",
-          "e04_job_no": "$input.path('$').jobNo"
+          "company_name": "$input.path('$').company_name",
+          "job_name": "$input.path('$').job_name",
+          "e04_job_no": "$input.path('$').e04_job_no"
         }
       }
     }
