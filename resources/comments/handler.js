@@ -45,11 +45,11 @@ module.exports.handler = (event, context) => {
                             console.log('userData: ', userData);
                             if (event.anonymous === 'false') {
                                 event.payload.Item.user_name = userData.Items[0].user_name
-                                event.payload.Item.fb_id = userData.Items[0].fb_id
                                 event.payload.Item.anonymous = false
                             } else {
                                 event.payload.Item.anonymous = true
                             }
+                            event.payload.Item.fb_id = userData.Items[0].fb_id
                             event.payload.Item.type = event.type
                             event.payload.Item.timestamp = Date.now()
                             dynamo.putItem(event.payload, (err, data) => {
