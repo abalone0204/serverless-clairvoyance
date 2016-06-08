@@ -39,8 +39,8 @@
         "IndexName": "company_name-job_name-index",
         "KeyConditionExpression": "company_name = :company_name and  job_name = :job_name",
         "ExpressionAttributeValues": {
-          ":company_name": "$input.params().header.get('x-Company-Name')",
-          ":job_name": "$input.params().header.get('x-Job-Name')"
+          ":company_name": "$input.params('company_name')",
+          ":job_name": "$input.params('job_name')"
         },
         "Limit": 1
       },
@@ -49,7 +49,7 @@
         "IndexName": "e04_job_no-index",
         "KeyConditionExpression": "e04_job_no = :e04_job_no",
         "ExpressionAttributeValues": {
-          ":e04_job_no": "$input.params().header.get('x-E04-Job-No')"
+          ":e04_job_no": "$input.params('e04_job_no')"
         },
         "Limit": 1
       }
