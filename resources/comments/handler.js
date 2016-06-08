@@ -20,14 +20,7 @@ module.exports.handler = (event, context) => {
                 if (err) {
                     context.fail(err)
                 }
-
-                if (data.Items.length > 0) {
-                    context.succeed(data.Items)
-                } else {
-                    context.succeed({
-                        message: 'comments not found'
-                    })
-                }
+                context.succeed(data.Items)
             })
             break
         case 'create':
