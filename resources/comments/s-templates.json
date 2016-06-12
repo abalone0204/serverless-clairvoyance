@@ -16,14 +16,15 @@
     "application/json": {
       "operation": "create",
       "access_token": "$input.path('$').access_token",
-      "anonymous": "$input.path('$.anonymous')",
+      "anonymous": "$input.path('$').anonymous",
       "type": "$input.path('$').type",
       "payload": {
         "TableName": "Comments",
         "Item": {
           "job_id": "$input.path('$').job_id",
           "content": "$input.path('$').content",
-          "source": "$input.path('$').source"
+          "source": "$input.path('$').source",
+          "type": "$input.path('$').type"
         }
       },
       "find_user_payload": {

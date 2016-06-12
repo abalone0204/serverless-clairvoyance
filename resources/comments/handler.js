@@ -24,6 +24,9 @@ module.exports.handler = (event, context) => {
             })
             break
         case 'create':
+            if (!!event.content) {
+                context.fail("Empty content")
+            }
             const types = ['good', 'bad', 'normal']
             if (types.indexOf(event.type) === -1) {
                 context.fail('Unknown type of comment')

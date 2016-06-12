@@ -2,12 +2,17 @@
   "apiRequestCreateJobTemplate": {
     "application/json": {
       "operation": "create",
+      "job_no": {
+          "e04": "$input.path('$').e04_job_no",
+          "eeee": "$input.path('$').eeee_job_no"
+      },
       "payload": {
         "TableName": "Jobs",
         "Item": {
           "company_name": "$input.path('$').company_name",
           "job_name": "$input.path('$').job_name",
-          "e04_job_no": "$input.path('$').e04_job_no"
+          "e04_job_no": "$input.path('$').e04_job_no",
+          "eeee_job_no": "$input.path('$').eeee_job_no"
         }
       },
       "check_payload": {
@@ -28,12 +33,25 @@
           ":e04_job_no": "$input.path('$').e04_job_no"
         },
         "Limit": 1
+      },
+      "eeee_check_payload": {
+        "TableName": "Jobs",
+        "IndexName": "eeee_job_no-index",
+        "KeyConditionExpression": "eeee_job_no = :eeee_job_no",
+        "ExpressionAttributeValues": {
+          ":eeee_job_no": "$input.path('$').eeee_job_no"
+        },
+        "Limit": 1
       }
     }
   },
   "apiRequestReadJobTemplate": {
     "application/json": {
       "operation": "read",
+      "job_no": {
+          "e04": "$input.params('e04_job_no')",
+          "eeee": "$input.params('eeee_job_no')"
+      },
       "payload": {
         "TableName": "Jobs",
         "IndexName": "company_name-job_name-index",
@@ -44,12 +62,21 @@
         },
         "Limit": 1
       },
-      "e04payload": {
+      "e04_payload": {
         "TableName": "Jobs",
         "IndexName": "e04_job_no-index",
         "KeyConditionExpression": "e04_job_no = :e04_job_no",
         "ExpressionAttributeValues": {
           ":e04_job_no": "$input.params('e04_job_no')"
+        },
+        "Limit": 1
+      },
+      "eeee_payload": {
+        "TableName": "Jobs",
+        "IndexName": "eeee_job_no-index",
+        "KeyConditionExpression": "eeee_job_no = :eeee_job_no",
+        "ExpressionAttributeValues": {
+          ":eeee_job_no": "$input.params('eeee_job_no')"
         },
         "Limit": 1
       }
